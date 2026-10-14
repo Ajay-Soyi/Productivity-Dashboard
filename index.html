@@ -19,7 +19,11 @@
         </a>
 
         <div class="sidebar-label">WORKSPACE</div>
-        <nav id="dayflow-sidebar-nav" class="side-nav" aria-label="Main navigation">
+        <nav
+          id="dayflow-sidebar-nav"
+          class="side-nav"
+          aria-label="Main navigation"
+        >
           <a
             id="dayflow-dashboard-sidebar"
             class="nav-link active"
@@ -333,120 +337,37 @@
                 </div>
                 <span class="soft-pill">TODAY</span>
               </div>
-              <form class="add-form" data-todo-form>
+              <form id="dayflow-todo-form" class="add-form" data-todo-form>
                 <label class="sr-only" for="todo-input">Add a task</label
                 ><input
                   id="todo-input"
                   type="text"
                   placeholder="What needs to get done?"
                   data-todo-input
-                /><button class="primary-button" type="button" data-todo-add>
+                /><button class="primary-button" type="submit" data-todo-add>
                   + Add task
                 </button>
               </form>
               <div class="list-filter">
-                <span>YOUR TASKS <b data-task-count>04</b></span
-                ><span class="filter-label">All tasks⌄</span>
+                <span
+                  >YOUR TASKS
+                  <b id="dayflow-todo-list-total-tasks" data-task-count
+                    >04</b
+                  ></span
+                >
+                <span class="filter-label">All tasks⌄</span>
               </div>
-              <ul class="task-list" data-task-list>
-                <li class="task-row">
-                  <label class="task-main"
-                    ><input type="checkbox" data-task-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span class="task-text"
-                      >Review today's study plan</span
-                    ></label
-                  ><button
-                    class="important-button selected"
-                    type="button"
-                    aria-label="Mark important"
-                    data-task-important
-                  >
-                    ★</button
-                  ><button
-                    class="delete-button"
-                    type="button"
-                    aria-label="Delete task"
-                    data-task-delete
-                  >
-                    ×
-                  </button>
-                </li>
-                <li class="task-row">
-                  <label class="task-main"
-                    ><input type="checkbox" data-task-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span class="task-text"
-                      >Finish the UI assignment</span
-                    ></label
-                  ><button
-                    class="important-button"
-                    type="button"
-                    aria-label="Mark important"
-                    data-task-important
-                  >
-                    ☆</button
-                  ><button
-                    class="delete-button"
-                    type="button"
-                    aria-label="Delete task"
-                    data-task-delete
-                  >
-                    ×
-                  </button>
-                </li>
-                <li class="task-row completed">
-                  <label class="task-main"
-                    ><input type="checkbox" checked data-task-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span class="task-text"
-                      >Organize project files</span
-                    ></label
-                  ><button
-                    class="important-button"
-                    type="button"
-                    aria-label="Mark important"
-                    data-task-important
-                  >
-                    ☆</button
-                  ><button
-                    class="delete-button"
-                    type="button"
-                    aria-label="Delete task"
-                    data-task-delete
-                  >
-                    ×
-                  </button>
-                </li>
-                <li class="task-row">
-                  <label class="task-main"
-                    ><input type="checkbox" data-task-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span class="task-text"
-                      >Practice JavaScript concepts</span
-                    ></label
-                  ><button
-                    class="important-button"
-                    type="button"
-                    aria-label="Mark important"
-                    data-task-important
-                  >
-                    ☆</button
-                  ><button
-                    class="delete-button"
-                    type="button"
-                    aria-label="Delete task"
-                    data-task-delete
-                  >
-                    ×
-                  </button>
-                </li>
-              </ul>
-              <div class="empty-state" data-task-empty hidden>
+              <ul
+                id="dayflow-todo-task-container"
+                class="task-list"
+                data-task-list
+              ></ul>
+              <div
+                id="dayflow-empty-todo"
+                class="empty-state"
+                data-task-empty
+                hidden
+              >
                 <span>☷</span><strong>No tasks yet</strong>
                 <p>Add a task to get started.</p>
               </div>

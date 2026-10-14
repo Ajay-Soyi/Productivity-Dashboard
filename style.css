@@ -1645,6 +1645,10 @@ body.dark-theme .weather-temp {
   color: var(--text);
 }
 
+.line-through-todo{
+  text-decoration: line-through !important;
+}
+
 @media (min-width: 1500px) {
   .main-content {
     padding-left: 55px;
