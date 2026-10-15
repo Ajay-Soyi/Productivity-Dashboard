@@ -59,6 +59,7 @@ const totalTasks = document.querySelector("#dayflow-todo-list-total-tasks");
 const emptyTodo = document.getElementById("dayflow-empty-todo");
 const taskContainer = document.getElementById("dayflow-todo-task-container");
 
+// delete todo
 const deleteTodo = (id) => {
   const tasksTempArr = tasksArr.filter((elem) => elem.id !== id);
   tasksArr = tasksTempArr;
@@ -69,6 +70,7 @@ const deleteTodo = (id) => {
   todoListTaskUI();
 };
 
+// update completed todo
 const isTodoCompleted = (e, id) => {
   let isCompleted = e.target.checked;
   tasksArr.find((elem) => elem.id === id).completed = isCompleted;
@@ -76,6 +78,7 @@ const isTodoCompleted = (e, id) => {
   todoListTaskUI();
 };
 
+// updata important todo
 const isTodoImportant = (id) => {
   const tasksTempArr = tasksArr.map((elem) => {
     if (elem.id === id) elem.important = !elem.important;
@@ -86,6 +89,7 @@ const isTodoImportant = (id) => {
   todoListTaskUI();
 };
 
+// render task list
 const todoListTaskUI = () => {
   taskContainer.innerHTML = "";
   tasksArr.forEach((elem) => {
@@ -148,4 +152,69 @@ todoForm.addEventListener("submit", (e) => {
   emptyTodo.setAttribute("hidden", "");
   totalTasks.textContent = tasksArr.length;
   e.target[0].value = "";
+});
+
+/* Daily Planner */
+let dailyPlansArr = JSON.parse(localStorage.getItem("dailyPlans")) || [];
+const dailyPlanner = document.getElementById("dayflow-daily-planner");
+const dailyflowInputs = [
+  ...document.querySelectorAll("#dayflow-daily-planner input"),
+];
+
+dailyflowInputs.forEach((elem) => {
+  const time =
+    elem.parentElement.parentElement.querySelector("time").textContent;
+  const planContent = dailyPlansArr.find((elem) => elem.time === time);
+
+  if (planContent) {
+    elem.value = planContent.plan;
+  }
+});
+
+dailyPlanner.addEventListener("click", (e) => {
+  if (e.target.tagName === "INPUT") {
+    const currSelectedTimeSlot = e.target.parentElement.parentElement;
+    const prevSelectedTimeSlot = document.querySelector(
+      "#dayflow-daily-planner .current-slot",
+    );
+    const time = currSelectedTimeSlot.querySelector("time").textContent;
+    if (prevSelectedTimeSlot)
+      prevSelectedTimeSlot.classList.remove("current-slot");
+    currSelectedTimeSlot.classList.add("current-slot");
+    e.target.onkeydown = (e) => {
+      if (e.key === "Enter") {
+        if (e.target.value.trim() === "") {
+          const hasToUpdate = dailyPlansArr.findIndex((elem) => {
+            return elem.time === time;
+          });
+          if (hasToUpdate) {
+            dailyPlansArr.splice(hasToUpdate, 1);
+          } else {
+            return;
+          }
+        } else {
+          e.target.value = e.target.value;
+          const hasToUpdate = dailyPlansArr.findIndex((elem) => {
+            return elem.time === time;
+          });
+          if (hasToUpdate !== -1) {
+            dailyPlansArr[hasToUpdate] = {
+              ...dailyPlansArr[hasToUpdate],
+              plan: e.target.value,
+            };
+          } else {
+            dailyPlansArr.push({
+              id: Date.now(),
+              plan: e.target.value,
+              time,
+            });
+          }
+        }
+
+        localStorage.setItem("dailyPlans", JSON.stringify(dailyPlansArr));
+        currSelectedTimeSlot.classList.remove("current-slot");
+        e.target.blur();
+      }
+    };
+  }
 });
