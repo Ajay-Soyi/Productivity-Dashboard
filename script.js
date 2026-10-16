@@ -218,3 +218,90 @@ dailyPlanner.addEventListener("click", (e) => {
     };
   }
 });
+
+/* Daily Goals */
+
+let goalsArr = JSON.parse(localStorage.getItem("goals")) || [];
+const dailyGoalsForm = document.getElementById("dayflow-daily-goals-form");
+const dailyGoalsContainer = document.getElementById("dayflow-daily-goals-list");
+const dailyGoalsProgressTrack = document.getElementById(
+  "dayflow-daily-goals-progress-track",
+);
+const dailyGoalsGoalProgress = document.getElementById(
+  "dayflow-daily-goals-goal-progress",
+);
+const dailyGoalsGoalPercent = document.getElementById("dayflow-goal-percent");
+const dailyGoalsGoalRing = document.getElementById(
+  "dayflow-daily-goals-goal-ring",
+);
+
+const renderProgressTrack = () => {
+  // First Progress Track
+  const totalGoals = goalsArr.length;
+  const completedGoals = goalsArr.reduce((count, elem) => {
+    if (elem.completed) count++;
+    return count;
+  }, 0);
+  let progressPercent = (completedGoals / totalGoals) * 100 || 0;
+
+  dailyGoalsProgressTrack.setAttribute("style", `width: ${progressPercent}%`);
+  dailyGoalsGoalProgress.textContent = `${completedGoals} of ${totalGoals} completed`;
+
+  // Circulat Progress Track
+  progressPercent = Math.round(progressPercent);
+
+  dailyGoalsGoalPercent.innerHTML = `${progressPercent}<span>%</span>`;
+  dailyGoalsGoalRing.style.background = `
+  conic-gradient(#53b591 0 ${progressPercent}%, #d9f1e5 ${progressPercent}% 100%)
+  `;
+};
+
+const handleComplete = (e, id) => {
+  const tempGoalsArr = goalsArr.map((elem) =>
+    elem.id === id ? { ...elem, completed: e.target.checked } : elem,
+  );
+  goalsArr = tempGoalsArr;
+  localStorage.setItem("goals", JSON.stringify(goalsArr));
+  renderDailyGoalsUI();
+};
+
+const renderDailyGoalsUI = () => {
+  renderProgressTrack();
+  dailyGoalsContainer.innerHTML = "";
+  goalsArr.forEach((elem) => {
+    dailyGoalsContainer.innerHTML += `
+      <li class="goal-row ${elem.completed ? "completed" : ""}">
+        <label
+          ><input ${elem.completed ? "checked" : ""} onclick="handleComplete(event,${elem.id})" type="checkbox" data-goal-complete /><span
+            class="custom-check"
+          ></span
+          ><span>${elem.goal}</span></label
+        ><span class="goal-tag">${elem.goalTag}</span>
+      </li>
+    `;
+  });
+};
+
+renderDailyGoalsUI();
+
+dailyGoalsForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const goalStr = e.target[0].value;
+  const idx = goalStr.indexOf("#");
+  let goal = goalStr;
+  let goalTag = "GENERAL";
+  if (idx !== -1) {
+    goal = goalStr.slice(0, idx);
+    goalTag = goalStr.slice(idx + 1).toUpperCase();
+  }
+
+  goalsArr.push({
+    id: Date.now(),
+    goal,
+    goalTag,
+    completed: false,
+  });
+  localStorage.setItem("goals", JSON.stringify(goalsArr));
+  e.target[0].value = "";
+  renderDailyGoalsUI();
+});

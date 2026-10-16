@@ -432,7 +432,7 @@
                   data-planner-slot="07:00"
               /></label>
             </div>
-            <div class="planner-row ">
+            <div class="planner-row">
               <time>08:00 AM</time><span class="timeline-dot"></span
               ><label class="planner-entry"
                 ><span class="slot-label">MORNING</span
@@ -617,71 +617,45 @@
                 </div>
                 <span class="soft-pill">DAILY</span>
               </div>
-              <form class="add-form" data-goal-form>
+              <form
+                id="dayflow-daily-goals-form"
+                class="add-form"
+                data-goal-form
+              >
                 <label class="sr-only" for="goal-input">Add a goal</label
                 ><input
                   id="goal-input"
                   type="text"
                   placeholder="Add a goal for today..."
                   data-goal-input
-                /><button class="primary-button" type="button" data-goal-add>
+                /><button class="primary-button" type="submit" data-goal-add>
                   + Add goal
                 </button>
               </form>
               <div class="goal-progress-heading">
                 <span>Daily progress</span
-                ><strong data-goal-progress>2 of 5 completed</strong>
+                ><strong
+                  id="dayflow-daily-goals-goal-progress"
+                  data-goal-progress
+                ></strong>
               </div>
               <div class="progress-track">
-                <span data-goal-progress-bar style="width: 40%"></span>
+                <span
+                  id="dayflow-daily-goals-progress-track"
+                  data-goal-progress-bar
+                ></span>
               </div>
-              <ul class="goal-list" data-goal-list>
-                <li class="goal-row completed">
-                  <label
-                    ><input type="checkbox" checked data-goal-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span>Make a plan for the day</span></label
-                  ><span class="goal-tag">PERSONAL</span>
-                </li>
-                <li class="goal-row completed">
-                  <label
-                    ><input type="checkbox" checked data-goal-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span>Drink enough water</span></label
-                  ><span class="goal-tag">WELLNESS</span>
-                </li>
-                <li class="goal-row">
-                  <label
-                    ><input type="checkbox" data-goal-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span>Practice JavaScript</span></label
-                  ><span class="goal-tag">LEARNING</span>
-                </li>
-                <li class="goal-row">
-                  <label
-                    ><input type="checkbox" data-goal-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span>Spend time away from screens</span></label
-                  ><span class="goal-tag">WELLNESS</span>
-                </li>
-                <li class="goal-row">
-                  <label
-                    ><input type="checkbox" data-goal-complete /><span
-                      class="custom-check"
-                    ></span
-                    ><span>Review what I learned</span></label
-                  ><span class="goal-tag">LEARNING</span>
-                </li>
-              </ul>
+              <ul
+                id="dayflow-daily-goals-list"
+                class="goal-list"
+                data-goal-list
+              ></ul>
             </div>
             <aside class="panel goal-summary">
-              <div class="goal-ring">
+              <div id="dayflow-daily-goals-goal-ring" class="goal-ring">
                 <div>
-                  <strong data-goal-percent>40<span>%</span></strong
+                  <strong
+                  id="dayflow-goal-percent" data-goal-percent></strong
                   ><small>complete</small>
                 </div>
               </div>
