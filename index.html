@@ -50,7 +50,11 @@
         </nav>
 
         <div class="sidebar-label second-label">YOUR SPACE</div>
-        <nav class="side-nav" aria-label="More features">
+        <nav
+          id="dayflow-extra-side-nav"
+          class="side-nav"
+          aria-label="More features"
+        >
           <a class="nav-link" href="#motivation" data-feature="motivation"
             ><span class="nav-icon">✳</span> Motivation</a
           >
@@ -746,8 +750,9 @@
               </p>
               <div class="session-count">
                 <span>SESSIONS COMPLETED</span
-                ><strong
-                id="dayflow-data-session-count" data-session-count>0</strong>
+                ><strong id="dayflow-data-session-count" data-session-count
+                  >0</strong
+                >
               </div>
             </aside>
           </div>
@@ -778,10 +783,15 @@
             <blockquote class="big-quote" data-quote-text>
               The secret of getting ahead is getting started.
             </blockquote>
-            <div class="quote-author big-quote-author" data-quote-author>
+            <div
+              id="author-name"
+              class="quote-author big-quote-author"
+              data-quote-author
+            >
               <span class="author-line"></span> Mark Twain
             </div>
             <button
+              id="dayflow-new-quote-btn"
               class="primary-button new-quote-button"
               type="button"
               data-new-quote
@@ -825,43 +835,41 @@
                     Current conditions
                   </p>
                 </div>
-                <span class="weather-big-icon">☁️</span>
+                <img class="weather-big-icon" />
               </div>
               <div class="weather-big-temp" data-weather-temperature>
                 --°<span>C</span>
               </div>
-              <p class="weather-big-condition" data-weather-condition>
-                Weather condition
-              </p>
               <p class="weather-high-low">
-                Feels like <strong data-weather-feels>--°</strong>
+                Feels like
+                <strong id="feels-like" data-weather-feels>--°</strong>
               </p>
             </section>
             <section class="weather-stat-grid">
               <div class="panel weather-stat">
                 <span class="stat-symbol">◌</span><span>Humidity</span
-                ><strong data-weather-humidity>--<small>%</small></strong>
+                ><strong id="dayflow-humidity" data-weather-humidity
+                  >--<small>%</small></strong
+                >
               </div>
               <div class="panel weather-stat">
                 <span class="stat-symbol">〰</span><span>Wind speed</span
-                ><strong data-weather-wind>--<small> km/h</small></strong>
+                ><strong id="dayflow-weather-speed" data-weather-wind
+                  >--<small> km/h</small></strong
+                >
               </div>
               <div class="panel weather-stat">
                 <span class="stat-symbol">☂</span><span>Precipitation</span
-                ><strong data-weather-precipitation
+                ><strong id="dayflow-precipitation" data-weather-precipitation
                   >--<small> mm</small></strong
                 >
               </div>
               <div class="panel weather-stat">
                 <span class="stat-symbol">◉</span><span>UV index</span
-                ><strong data-weather-uv>--</strong>
+                ><strong id="dayflow-uv-index" data-weather-uv>--</strong>
               </div>
             </section>
           </div>
-          <p class="api-note">
-            Weather information will appear here after you connect a weather
-            API.
-          </p>
         </section>
       </main>
     </div>

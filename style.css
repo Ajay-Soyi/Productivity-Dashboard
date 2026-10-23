@@ -20,7 +20,6 @@
 }
 * {
   box-sizing: border-box;
-  font-size: 0.9rem !important;
 }
 html {
   scroll-behavior: smooth;
@@ -30,7 +29,9 @@ body {
   background: var(--page);
   color: var(--text);
   font-family: "DM Sans", sans-serif;
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  word-spacing: 0.04em;
   -webkit-font-smoothing: antialiased;
 }
 button,
@@ -73,7 +74,7 @@ a {
   font:
     800 23px "Manrope",
     sans-serif;
-  letter-spacing: -1.1px;
+  letter-spacing: -0.5px;
 }
 .brand-mark {
   display: grid;
@@ -86,7 +87,7 @@ a {
   font:
     800 22px "Manrope",
     sans-serif;
-  letter-spacing: -1px;
+  letter-spacing: -0.15px;
 }
 .brand-period,
 .heading-dot {
@@ -169,7 +170,7 @@ a {
   font:
     700 14px/1.45 "Manrope",
     sans-serif;
-  letter-spacing: -0.25px;
+  letter-spacing: normal;
 }
 .tip-copy {
   margin: 0;
@@ -296,7 +297,7 @@ h1 {
   font:
     800 34px/1.2 "Manrope",
     sans-serif;
-  letter-spacing: -1.5px;
+  letter-spacing: -0.8px;
 }
 .subtitle {
   margin: 9px 0 0;
@@ -339,7 +340,7 @@ h1 {
   font:
     700 17px "Manrope",
     sans-serif;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.15px;
 }
 .hero-card {
   position: relative;
@@ -370,7 +371,7 @@ h1 {
   font:
     800 29px/1.2 "Manrope",
     sans-serif;
-  letter-spacing: -1px;
+  letter-spacing: -0.15px;
 }
 .hero-card h2 em {
   color: var(--lavender);
@@ -501,7 +502,7 @@ h1 {
   font:
     700 17px "Manrope",
     sans-serif;
-  letter-spacing: -0.45px;
+  letter-spacing: normal;
 }
 .section-heading p {
   margin: 6px 0 0;
@@ -588,7 +589,7 @@ h1 {
   font:
     700 13px "Manrope",
     sans-serif;
-  letter-spacing: -0.2px;
+  letter-spacing: normal;
 }
 .feature-description {
   margin-top: 6px;
@@ -673,7 +674,7 @@ h1 {
   font:
     700 12px "Manrope",
     sans-serif;
-  letter-spacing: -0.2px;
+  letter-spacing: normal;
 }
 .panel-icon {
   display: grid;
@@ -703,7 +704,7 @@ h1 {
   font:
     600 14px/1.6 "Manrope",
     sans-serif;
-  letter-spacing: -0.25px;
+  letter-spacing: normal;
 }
 .quote-author {
   display: flex;
@@ -736,7 +737,7 @@ h1 {
   font:
     700 27px "Manrope",
     sans-serif;
-  letter-spacing: -1px;
+  letter-spacing: -0.15px;
 }
 .weather-temp span {
   color: #85859b;
@@ -971,14 +972,15 @@ input:checked + .custom-check {
   background: var(--lavender);
 }
 input:checked + .custom-check::after {
-  content: "✓";
+  content: "";
   position: absolute;
-  inset: -1px 0 0;
-  display: grid;
-  place-items: center;
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
+  width: 4px;
+  height: 8px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  left: 5px;
+  top: 2px;
+  transform: rotate(45deg);
 }
 .task-text {
   overflow: hidden;
@@ -1414,7 +1416,7 @@ input:checked + .custom-check::after {
   font:
     700 clamp(22px, 3.1vw, 34px)/1.45 "Manrope",
     sans-serif;
-  letter-spacing: -1px;
+  letter-spacing: -0.15px;
 }
 .big-quote-author {
   justify-content: center;
@@ -1474,12 +1476,14 @@ input:checked + .custom-check::after {
   font:
     800 64px/1 "Manrope",
     sans-serif;
-  letter-spacing: -4px;
+  letter-spacing: -0.15px;
 }
+
 .weather-big-temp span {
   font-size: 24px;
   color: #8682aa;
   letter-spacing: 0;
+  margin-left: 6px;
 }
 .weather-big-condition {
   margin: 10px 0;
@@ -1645,7 +1649,7 @@ body.dark-theme .weather-temp {
   color: var(--text);
 }
 
-.line-through-todo{
+.line-through-todo {
   text-decoration: line-through !important;
 }
 

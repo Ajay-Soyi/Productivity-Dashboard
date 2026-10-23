@@ -51,7 +51,23 @@ sidebarNav.addEventListener("click", (e) => {
   document.getElementById(`${selectedSection}`).removeAttribute("hidden");
 });
 
+// second navigation
+const secondSidebarNav = document.getElementById("dayflow-extra-side-nav");
+secondSidebarNav.addEventListener("click", (e) => {
+  const activeElement = document.querySelector(".active");
+  const visibleSection = document.querySelector("main>section:not([hidden])");
 
+  let selectedSection;
+  if (e.target.closest("[data-feature='motivation']")) {
+    selectedSection = "feature-motivation";
+  } else if (e.target.closest('[data-feature="weather"]')) {
+    selectedSection = "feature-weather";
+  }
+  activeElement.classList.remove("active");
+  e.target.classList.add("active");
+  visibleSection.setAttribute("hidden", "");
+  document.getElementById(`${selectedSection}`).removeAttribute("hidden");
+});
 
 /* TODO LIST */
 
@@ -406,3 +422,69 @@ timerContainer.addEventListener("click", (e) => {
     timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
 });
+
+/* motivation */
+const addQuote = document.getElementById("dayflow-new-quote-btn");
+const quote = document.querySelector(".motivation-stage blockquote");
+let currQuote = JSON.parse(localStorage.getItem("currQuote")) || {
+  id: -1,
+  quote: "The secret of getting ahead is getting started.",
+  author: "Mark Twain",
+};
+const author = document.getElementById("author-name");
+
+const renderQuoteUI = () => {
+  quote.textContent = currQuote.quote;
+  author.textContent = currQuote.author;
+};
+renderQuoteUI();
+
+addQuote.addEventListener("click", async () => {
+  const response = await fetch("https://dummyjson.com/quotes/random");
+  const data = await response.json();
+  currQuote = data;
+  localStorage.setItem("currQuote", JSON.stringify(currQuote));
+  renderQuoteUI();
+});
+
+/* Weather */
+
+const place = document.querySelector(".weather-main-card .weather-place");
+const weatherDate = document.querySelector(".weather-main-card .weather-date");
+const weatherIcon = document.querySelector(".weather-big-icon");
+const weatherTemp = document.querySelector(
+  ".weather-main-card .weather-big-temp",
+);
+const feelsLike = document.querySelector(".weather-main-card #feels-like");
+const humidity = document.querySelector(".weather-stat-grid #dayflow-humidity");
+const windSpeed = document.querySelector(
+  ".weather-stat-grid #dayflow-weather-speed",
+);
+const precipitation = document.querySelector(
+  ".weather-stat-grid #dayflow-precipitation",
+);
+const uvIndex = document.querySelector(".weather-stat-grid #dayflow-uv-index");
+
+const fetchWeather = async () => {
+  const response = await fetch(
+    "https://api.weatherapi.com/v1/forecast.json?key=013e8648243a4170aa7100459262310&q=28.6,77.2&days=3",
+  );
+  const data = await response.json();
+  return data;
+};
+
+const renderWeatherUI = async () => {
+  const data = await fetchWeather();
+  place.textContent = data.location.region;
+  weatherDate.textContent = data.current.condition.text;
+  weatherIcon.setAttribute("src", data.current.condition.icon);
+  weatherTemp.innerHTML = `${data.current.temp_c} °C`;
+  feelsLike.textContent = `${data.current.feelslike_c}°C`;
+  humidity.innerHTML = `${data.current.humidity}<small>%</small>`;
+  windSpeed.innerHTML = `${data.current.wind_kph}<small> km/h</small>`;
+  precipitation.innerHTML = `${data.current.precip_mm}<small> mm</small>`;
+  uvIndex.innerHTML = `${data.current.uv}`;
+};
+
+fetchWeather();
+renderWeatherUI();
