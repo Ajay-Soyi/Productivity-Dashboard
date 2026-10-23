@@ -51,6 +51,8 @@ sidebarNav.addEventListener("click", (e) => {
   document.getElementById(`${selectedSection}`).removeAttribute("hidden");
 });
 
+
+
 /* TODO LIST */
 
 let tasksArr = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -304,4 +306,103 @@ dailyGoalsForm.addEventListener("submit", (e) => {
   localStorage.setItem("goals", JSON.stringify(goalsArr));
   e.target[0].value = "";
   renderDailyGoalsUI();
+});
+
+/* Focus Timer */
+const timerContainer = document.getElementById("dayflow-timer-wrap");
+const timerDisplay = document.getElementById("dayflow-timer-display");
+const dataSessionCount = document.getElementById("dayflow-data-session-count");
+const session = JSON.parse(localStorage.getItem("sessions")) || 0;
+
+let time = 25 * 60;
+let orgTime = time;
+let timeout;
+let isPaused = false;
+
+const renderDataSessionCount = () => {
+  dataSessionCount.textContent = session;
+};
+
+renderDataSessionCount();
+const renderCountdown = () => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+
+  timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+  if (time <= 0) {
+    clearTimeout(timeout);
+    isPaused = false;
+    session++;
+    localStorage.setItem("session", `${session}`);
+    renderDataSessionCount();
+    return;
+  }
+
+  time--;
+  timeout = setTimeout(renderCountdown, 1000);
+};
+
+timerContainer.addEventListener("click", (e) => {
+  const clickedSession = e.target.closest("[data-session]");
+  const activeSessionBtn = document.querySelector(
+    ".timer-session-tabs .active",
+  );
+
+  // Session selection
+  if (clickedSession) {
+    clearTimeout(timeout);
+    isPaused = false;
+
+    if (activeSessionBtn) {
+      activeSessionBtn.classList.remove("active");
+    }
+
+    clickedSession.classList.add("active");
+
+    if (clickedSession.dataset.session === "work") {
+      time = 25 * 60;
+    } else if (clickedSession.dataset.session === "short-break") {
+      time = 5 * 60;
+    } else if (clickedSession.dataset.session === "long-break") {
+      time = 15 * 60;
+    }
+
+    orgTime = time;
+
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
+
+  // Start / Resume
+  if (e.target.closest("[data-timer-start]")) {
+    if (!timeout && time > 0 && !isPaused) {
+      renderCountdown();
+    } else if (isPaused && time > 0) {
+      isPaused = false;
+      renderCountdown();
+    }
+  }
+
+  // Pause
+  if (e.target.closest("[data-timer-pause]")) {
+    clearTimeout(timeout);
+    timeout = null;
+    isPaused = true;
+  }
+
+  // Reset
+  if (e.target.closest("[data-timer-reset]")) {
+    clearTimeout(timeout);
+    timeout = null;
+    time = orgTime;
+    isPaused = false;
+
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
 });

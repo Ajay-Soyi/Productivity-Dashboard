@@ -654,8 +654,7 @@
             <aside class="panel goal-summary">
               <div id="dayflow-daily-goals-goal-ring" class="goal-ring">
                 <div>
-                  <strong
-                  id="dayflow-goal-percent" data-goal-percent></strong
+                  <strong id="dayflow-goal-percent" data-goal-percent></strong
                   ><small>complete</small>
                 </div>
               </div>
@@ -682,10 +681,16 @@
               <p class="subtitle">Give one task your full attention.</p>
             </div>
           </div>
-          <div class="timer-wrap">
+          <div id="dayflow-timer-wrap" class="timer-wrap">
             <section class="panel timer-panel">
               <span class="timer-status"><i></i> WORK SESSION</span>
-              <div class="timer-display" data-timer-display>25:00</div>
+              <div
+                id="dayflow-timer-display"
+                class="timer-display"
+                data-timer-display
+              >
+                25:00
+              </div>
               <p class="timer-caption">
                 Stay present. You're right where you need to be.
               </p>
@@ -741,7 +746,8 @@
               </p>
               <div class="session-count">
                 <span>SESSIONS COMPLETED</span
-                ><strong data-session-count>0</strong>
+                ><strong
+                id="dayflow-data-session-count" data-session-count>0</strong>
               </div>
             </aside>
           </div>
