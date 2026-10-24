@@ -488,3 +488,45 @@ const renderWeatherUI = async () => {
 
 fetchWeather();
 renderWeatherUI();
+
+// Overview cards navigation
+const overviewCards = document.querySelector(".feature-grid");
+
+overviewCards.addEventListener("click", (e) => {
+  const card = e.target.closest(".feature-card");
+  if (!card) return;
+
+  const feature = {
+    "todo-card": "feature-todo",
+    "planner-card": "feature-planner",
+    "goals-card": "feature-goals",
+    "focus-card": "feature-pomodoro",
+    "quote-card": "feature-motivation",
+    "weather-card": "feature-weather",
+  };
+
+  const cardClass = [...card.classList].find((className) =>
+    Object.hasOwn(feature, className),
+  );
+
+  if (!cardClass) return;
+
+  // Hide the currently visible page
+  document
+    .querySelector("main > section:not([hidden])")
+    .setAttribute("hidden", "");
+
+  // Show the selected feature
+  document.getElementById(feature[cardClass]).removeAttribute("hidden");
+
+  // Update sidebar active state
+  document.querySelectorAll(".side-nav .nav-link").forEach((link) => {
+    link.classList.remove("active");
+  });
+
+  const sidebarLink = document.querySelector(
+    `.side-nav [data-feature="${cardClass === "todo-card" ? "todo" : cardClass === "planner-card" ? "planner" : cardClass === "goals-card" ? "goals" : cardClass === "focus-card" ? "pomodoro" : cardClass === "quote-card" ? "motivation" : "weather"}"]`,
+  );
+
+  if (sidebarLink) sidebarLink.classList.add("active");
+});
